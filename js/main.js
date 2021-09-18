@@ -1,13 +1,13 @@
-const randomIntegerFrom1ToMax = (max) => {
-    return Math.ceil(Math.random() * max);
+const randomIntegerFrom0ToMax = (max) => {
+    return Math.floor(Math.random() * max);
 }
 
 const setBombingCellsIndeces = (numberOfBombs) => {
     const cellsLength = document.getElementsByClassName("cell").length;
     let bombingCellsIndeces = [];
-    for (let i = 0, randomInteger = 0, previousInteger = 0; i < numberOfBombs; i++) { 
+    for (let i = 0, randomInteger = -1, previousInteger = -1; i < numberOfBombs; i++) { 
         while (randomInteger === previousInteger) {
-            randomInteger = randomIntegerFrom1ToMax(cellsLength);
+            randomInteger = randomIntegerFrom0ToMax(cellsLength);
         }
         bombingCellsIndeces.push(randomInteger);
         previousInteger = randomInteger;
@@ -25,8 +25,8 @@ const getBombingCellsContents = (numberOfBombs) => {
     return bombingCellsContents;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log(randomIntegerFrom1ToMax(100));
+document.addEventListener("DOMContentLoaded", () => {
+    console.log(randomIntegerFrom0ToMax(100));
     console.log(setBombingCellsIndeces(15));
     console.log(getBombingCellsContents(15));
 })
