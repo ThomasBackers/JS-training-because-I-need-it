@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap');
+
+@keyframes bomb {
+    0% {
+        color: #000;
+    }
+
+    100% {
+        color: #FF7E6B;
+    }
+}
+
+#game-window {
+    /*SIZE*/
+    height: 100vh;
+    /*STYLE*/
+    background-color: #F8EDEB;
+    /*POSITION*/
+    display: flex;
+}
+
+#minesweeper-field {
+    /*SIZE*/
+    width: 90%;
+    height: 95%;
+    /*STYLE*/
+    background-color: #D8E2DC;
+    border: 5px solid #ECE4DB;
+    /*POSITION*/
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cell {
+    /*SIZE*/
+    /*I need 100 cells with 10 cells per row & per column*/
+    width: 10%; /*100% divided by 10 cells*/
+    height: 10%; /*100% divided by 10. cells*/
+    /*STYLE*/
+    border-bottom: 2px solid #E8E8E4;
+    border-right: 2px solid #E8E8E4;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.3rem;
+    text-shadow: 1px 1px 2px gray;
+    /*POSITION*/
+    display: flex;
+}
+
+.hidden-cell {
+    /*STYLE*/
+    background-color: #F8EDEB;
+    border: 3px outset #EADCCE;
+}
+
+.cell-content {
+    /*POSITION*/
+    margin: auto;
+}
+
+.hidden-cell-content {
+    /*STYLE*/
+    visibility: hidden;
+}
+
+.one {
+    color: #F8EDEB;
+}
+
+.two {
+    color: #FEC5BB;
+}
+
+.three {
+    color: #FEC89A;
+}
+
+.fa-bomb {
+    animation: bomb 0.5s infinite ease;
+}
+
+#minesweeper-field, .cell {
+    /*I need the borders to be taken into account by sizing*/
+    box-sizing: border-box;
+}
