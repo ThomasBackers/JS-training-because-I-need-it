@@ -1,11 +1,11 @@
-const randomIntegerFrom0ToMax = (max) => {
+const randomIntegerFrom0ToMax = max => {
     return Math.floor(Math.random() * max);
-}
+};
 
-const setBombingCellsIndeces = (numberOfBombs) => {
+const setBombingCellsIndeces = numberOfBombs => {
     const cellsLength = document.getElementsByClassName("cell").length;
     let bombingCellsIndeces = [];
-    for (let i = 0, randomInteger = -1, previousInteger = -1; i < numberOfBombs; i++) { 
+    for (let i = 0, randomInteger = -1, previousInteger = -1; i < numberOfBombs; i++) {
         while (randomInteger === previousInteger) {
             randomInteger = randomIntegerFrom0ToMax(cellsLength);
         }
@@ -13,9 +13,9 @@ const setBombingCellsIndeces = (numberOfBombs) => {
         previousInteger = randomInteger;
     }
     return bombingCellsIndeces;
-}
+};
 
-const getBombingCellsContents = (numberOfBombs) => {
+const getBombingCellsContents = numberOfBombs => {
     let cellsContents = document.getElementsByClassName("cell-content");
     const bombingCellsIndeces = setBombingCellsIndeces(numberOfBombs);
     let bombingCellsContents = [];
@@ -23,10 +23,18 @@ const getBombingCellsContents = (numberOfBombs) => {
         bombingCellsContents.push(cellsContents[index]);
     }
     return bombingCellsContents;
-}
+};
+
+const setBombingCells = (numberOfBombs) => {
+    const bombingCellsContents = getBombingCellsContents(numberOfBombs);
+    for (let bombingCellsContent of bombingCellsContents) {
+        bombingCellsContent.classList.add("fas", "fa-bomb");
+        bombingCellsContent.classList.remove("hidden-cell-content");
+    }
+};
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log(randomIntegerFrom0ToMax(100));
     console.log(setBombingCellsIndeces(15));
     console.log(getBombingCellsContents(15));
-})
+    setBombingCells(15);
+});
