@@ -14,7 +14,12 @@ const setBombingCellsIndeces = (numberOfBombs) => {
     return bombingCellsIndeces;
 }
 
-const setBombingCells = () => {
+const getBombingCells = () => {
     let cellsContents = document.getElementsByClassName("cell-content");
     const bombingCellsIndeces = setBombingCellsIndeces(15);
+    let bombingCellsContents = [];
+    for (let index of bombingCellsIndeces) {
+        bombingCellsContents.push(cellsContents[index]);
+    }
+    return bombingCellsContents;
 }
