@@ -3,12 +3,18 @@ const randomIntegerFrom1ToMax = (max) => {
 }
 
 const setBombingCellsIndeces = (numberOfBombs) => {
-    const bombingCellsIndeces = [];
-    for (let i = 0; i < numberOfBombs; i++) {
-        ;
+    let bombingCellsIndeces = [];
+    for (let i = 0, randomInteger = 0, previousInteger = 0; i < numberOfBombs; i++) { 
+        while (randomInteger === previousInteger) {
+            randomInteger = randomIntegerFrom1ToMax(100);
+        }
+        bombingCellsIndeces.push(randomInteger);
+        previousInteger = randomInteger;
     }
+    return bombingCellsIndeces;
 }
 
-const setBombingCellsUp = () => {
+const setBombingCells = () => {
     let cellsContents = document.getElementsByClassName("cell-content");
+    const bombingCellsIndeces = setBombingCellsIndeces(15);
 }
