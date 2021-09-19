@@ -62,8 +62,8 @@ const getAdjacentCells = currentCell => {
     const topCell = targetCell(currentCell, -10),
         topRightCell = topCell.nextElementSibling,
         rightCell = currentCell.nextElementSibling,
-        bottomRightCell = targetCell(rightCell, 10),
-        bottomCell = bottomRightCell.previousElementSibling,
+        bottomRightCell = bottomCell.nextElementSibling,
+        bottomCell = targetCell(currentCell, 10),
         bottomLeftCell = bottomCell.previousElementSibling,
         leftCell = currentCell.previousElementSibling,
         topLeftCell = topCell.previousElementSibling;
@@ -82,7 +82,46 @@ const getAdjacentCells = currentCell => {
 
 const setNumbersCells = numberOfBombs => {
     const bombingCells = setAndGetBombingCells(numberOfBombs);
-    for (let bombingCell of bombingCells) {}
+    for (let bombingCell of bombingCells) {
+        const adjacentCells = getAdjacentCells(bombingCell);
+        for (let adjacentCell of adjacentCells) {
+            const contentClasses = adjacentCell.firstChild.classList;
+            switch (true) {
+                case contentClasses.contains("one"):
+                    contentClasses.remove("one");
+                    contentClasses.add("two")
+                    break;
+                case contentClasses.contains("two"):
+                    contentClasses.remove("two");
+                    contentClasses.add("three")
+                    break;
+                case contentClasses.contains("three"):
+                    contentClasses.remove("three");
+                    contentClasses.add("four");
+                    break;
+                case contentClasses.contains("four"):
+                    contentClasses.remove("four");
+                    contentClasses.add("five");
+                    break;
+                case contentClasses.contains("five"):
+                    contentClasses.remove("five");
+                    contentClasses.add("six");
+                    break;
+                case contentClasses.contains("six"):
+                    contentClasses.remove("six");
+                    contentClasses.add("seven");
+                    break;
+                case contentClasses.contains("seven"):
+                    contentClasses.remove("seven");
+                    contentClasses.add("eight");
+                    break;
+                case contentClasses.contains("fa-bomb"):
+                    break;
+                default:
+                    contentClasses.add("one");
+            }
+        }
+    }
 };
 
 // TESTS
