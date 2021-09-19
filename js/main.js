@@ -144,6 +144,7 @@ const getAdjacentCells = currentCell => {
                 leftCell
             );
     }
+    console.log(adjacentCells);
     return adjacentCells;
 };
 
