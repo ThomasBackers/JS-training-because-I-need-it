@@ -43,6 +43,47 @@ const setAndGetBombingCells = numberOfBombs => {
 };
 
 // SET NUMBERS
+const targetCell = (currentCell, relativeTargetPosition) => {
+    //return a particular cell through its relative position to current cell
+    if (relativeTargetPosition > 0) {
+        for (let i = 0; i < relativeTargetPosition; i++) {
+            currentCell = currentCell.nextElementSibling;
+        }
+    } else {
+        for (let i = 0; i < Math.abs(relativeTargetPosition); i++) {
+            currentCell = currentCell.previousElementSibling;
+        }
+    }
+    return currentCell;
+};
+
+const getAdjacentCells = currentCell => {
+    //return the list of adjacent cells of the current one
+    const topCell = targetCell(currentCell, -10),
+        topRightCell = topCell.nextElementSibling,
+        rightCell = currentCell.nextElementSibling,
+        bottomRightCell = targetCell(rightCell, 10),
+        bottomCell = bottomRightCell.previousElementSibling,
+        bottomLeftCell = bottomCell.previousElementSibling,
+        leftCell = currentCell.previousElementSibling,
+        topLeftCell = topCell.previousElementSibling;
+    const adjacentCells = [
+        topCell,
+        topRightCell,
+        rightCell,
+        bottomRightCell,
+        bottomCell,
+        bottomLeftCell,
+        leftCell,
+        topLeftCell,
+    ];
+    return adjacentCells;
+};
+
+const setNumbersCells = numberOfBombs => {
+    const bombingCells = setAndGetBombingCells(numberOfBombs);
+    for (let bombingCell of bombingCells) {}
+};
 
 // TESTS
 document.addEventListener("DOMContentLoaded", () => {
