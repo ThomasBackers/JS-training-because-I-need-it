@@ -7,7 +7,7 @@ const randomIntegerFrom0ToMax = max => {
 const setBombsIndeces = numberOfBombs => {
     //return a random indeces list for random picking in a span elements list
     const cellsLength = document.getElementsByClassName("cell").length;
-    let BombsIndeces = [];
+    const BombsIndeces = [];
     for (let i = 0, randomInteger = -1, previousInteger = -1; i < numberOfBombs; i++) {
         while (randomInteger === previousInteger) {
             randomInteger = randomIntegerFrom0ToMax(cellsLength);
@@ -20,9 +20,9 @@ const setBombsIndeces = numberOfBombs => {
 
 const getBombingCellsContents = numberOfBombs => {
     //return a random span elements list to put bombs inside them
-    let cellsContents = document.getElementsByClassName("cell-content");
+    const cellsContents = document.getElementsByClassName("cell-content");
     const BombsIndeces = setBombsIndeces(numberOfBombs);
-    let bombingCellsContents = [];
+    const bombingCellsContents = [];
     for (let index of BombsIndeces) {
         bombingCellsContents.push(cellsContents[index]);
     }
@@ -33,7 +33,7 @@ const setAndGetBombingCells = numberOfBombs => {
     //put bombs inside random span elements
     //also return the list of bombing cells
     const bombingCellsContents = getBombingCellsContents(numberOfBombs);
-    let bombingCells = [];
+    const bombingCells = [];
     for (let bombingCellsContent of bombingCellsContents) {
         bombingCellsContent.classList.add("fas", "fa-bomb");
         bombingCellsContent.classList.remove("hidden-cell-content");
