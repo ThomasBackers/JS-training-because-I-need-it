@@ -47,18 +47,10 @@ const targetCell = (currentCell, relativeTargetPosition) => {
     //return a particular cell through its relative position to current cell
     if (relativeTargetPosition > 0) {
         for (let i = 0; i < relativeTargetPosition; i++) {
-            if (!currentCell) {
-                currentCell = "out of bound";
-                break;
-            }
             currentCell = currentCell.nextElementSibling;
         }
     } else {
         for (let i = 0; i < Math.abs(relativeTargetPosition); i++) {
-            if (!currentCell) {
-                currentCell = "out of bound";
-                break;
-            }
             currentCell = currentCell.previousElementSibling;
         }
     }
@@ -67,25 +59,91 @@ const targetCell = (currentCell, relativeTargetPosition) => {
 
 const getAdjacentCells = currentCell => {
     //return the list of adjacent cells of the current one
-    const topCell = targetCell(currentCell, -10),
-        topLeftCell = topCell.previousElementSibling,
-        topRightCell = topCell.nextElementSibling,
-        bottomCell = targetCell(currentCell, 10),
-        bottomRightCell = bottomCell.nextElementSibling,
-        bottomLeftCell = bottomCell.previousElementSibling,
-        leftCell = currentCell.previousElementSibling,
-        rightCell = currentCell.nextElementSibling;
-    const adjacentCells = [
-        topCell,
-        topLeftCell,
+    const adjacentCells = [],
+        cellClasses = currentCell.classList;
+    let topCell,
         topRightCell,
-        bottomCell,
+        rightCell,
         bottomRightCell,
+        bottomCell,
         bottomLeftCell,
         leftCell,
-        rightCell,
-    ];
-    console.log(adjacentCells);
+        topLeftCell;
+    switch (true) {
+        case cellClasses.contains("top"):
+            bottomCell = targetCell(currentCell, 10);
+            if (cellClasses.contains("left")) {
+                rightCell = currentCell.nextElementSibling;
+                bottomRightCell = bottomCell.nextElementSibling;
+                adjacentCells.push(bottomCell, rightCell, bottomRightCell);
+                break;
+            } else if (cellClasses.contains("right")) {
+                leftCell = currentCell.previousElementSibling;
+                bottomLeftCell = bottomCell.previousElementSibling;
+                adjacentCells.push(bottomCell, leftCell, bottomLeftCell);
+                break;
+            }
+            rightCell = currentCell.nextElementSibling;
+            leftCell = currentCell.previousElementSibling;
+            bottomRightCell = bottomCell.nextElementSibling;
+            bottomLeftCell = bottomCell.previousElementSibling;
+            adjacentCells.push(bottomCell, rightCell, leftCell, bottomRightCell, bottomLeftCell);
+            break;
+        case cellClasses.contains("bottom"):
+            topCell = targetCell(currentCell, -10);
+            if (cellClasses.contains("left")) {
+                rightCell = currentCell.nextElementSibling;
+                topRightCell = topCell.nextElementSibling;
+                adjacentCells.push(topCell, rightCell, topRightCell);
+                break;
+            } else if (cellClasses.contains("right")) {
+                leftCell = currentCell.previousElementSibling;
+                topLeftCell = topCell.previousElementSibling;
+                adjacentCells.push(topCell, leftCell, topLeftCell);
+                break;
+            }
+            rightCell = currentCell.nextElementSibling;
+            leftCell = currentCell.previousElementSibling;
+            topRightCell = topCell.nextElementSibling;
+            topLeftCell = topCell.previousElementSibling;
+            adjacentCells.push(topCell, rightCell, leftCell, topRightCell, topLeftCell);
+            break;
+        case cellClasses.contains("right"):
+            topCell = targetCell(currentCell, -10);
+            topLeftCell = topCell.previousElementSibling;
+            leftCell = currentCell.previousElementSibling;
+            bottomCell = targetCell(currentCell, 10);
+            bottomLeftCell = bottomCell.previousElementSibling;
+            adjacentCells.push(topCell, topLeftCell, leftCell, bottomCell, bottomLeftCell);
+            break;
+        case cellClasses.contains("left"):
+            topCell = targetCell(currentCell, -10);
+            topRightCell = topCell.nextElementSibling;
+            rightCell = currentCell.nextElementSibling;
+            bottomCell = targetCell(currentCell, 10);
+            bottomRightCell = bottomCell.nextElementSibling;
+            adjacentCells.push(topCell, topRightCell, rightCell, bottomCell, bottomRightCell);
+            break;
+        default:
+            topCell = targetCell(currentCell, -10);
+            topRightCell = topCell.nextElementSibling;
+            topLeftCell = topCell.previousElementSibling;
+            bottomCell = targetCell(currentCell, 10);
+            bottomRightCell = bottomCell.nextElementSibling;
+            bottomLeftCell = bottomCell.previousElementSibling;
+            rightCell = currentCell.nextElementSibling;
+            leftCell = currentCell.previousElementSibling;
+            adjacentCells.push(
+                topCell,
+                topRightCell,
+                topLeftCell,
+                bottomCell,
+                bottomRightCell,
+                bottomLeftCell,
+                rightCell,
+                leftCell
+            );
+    }
     return adjacentCells;
 };
 
@@ -98,37 +156,37 @@ const setNumbersCells = numberOfBombs => {
             const contentClasses = cellContent.classList;
             switch (true) {
                 case contentClasses.contains("one"):
-                    contentClasses.remove("one");
+                    contentClasses.remove("one", "hidden-cell-content");
                     contentClasses.add("two");
                     cellContent.innerHTML = "2";
                     break;
                 case contentClasses.contains("two"):
-                    contentClasses.remove("two");
+                    contentClasses.remove("two", "hidden-cell-content");
                     contentClasses.add("three");
                     cellContent.innerHTML = "3";
                     break;
                 case contentClasses.contains("three"):
-                    contentClasses.remove("three");
+                    contentClasses.remove("three", "hidden-cell-content");
                     contentClasses.add("four");
                     cellContent.innerHTML = "4";
                     break;
                 case contentClasses.contains("four"):
-                    contentClasses.remove("four");
+                    contentClasses.remove("four", "hidden-cell-content");
                     contentClasses.add("five");
                     cellContent.innerHTML = "5";
                     break;
                 case contentClasses.contains("five"):
-                    contentClasses.remove("five");
+                    contentClasses.remove("five", "hidden-cell-content");
                     contentClasses.add("six");
                     cellContent.innerHTML = "6";
                     break;
                 case contentClasses.contains("six"):
-                    contentClasses.remove("six");
+                    contentClasses.remove("six", "hidden-cell-content");
                     contentClasses.add("seven");
                     cellContent.innerHTML = "7";
                     break;
                 case contentClasses.contains("seven"):
-                    contentClasses.remove("seven");
+                    contentClasses.remove("seven", "hidden-cell-content");
                     contentClasses.add("eight");
                     cellContent.innerHTML = "8";
                     break;
@@ -145,6 +203,5 @@ const setNumbersCells = numberOfBombs => {
 
 // TESTS
 document.addEventListener("DOMContentLoaded", () => {
-    //console.log(setAndGetBombingCells(15));
-    setNumbersCells(1);
+    setNumbersCells(15);
 });
