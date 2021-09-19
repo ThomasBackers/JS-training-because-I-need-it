@@ -205,3 +205,4 @@ const setNumbersCells = numberOfBombs => {
 document.addEventListener("DOMContentLoaded", () => {
     setNumbersCells(15);
 });
+
