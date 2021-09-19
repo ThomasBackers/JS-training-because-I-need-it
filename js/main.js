@@ -154,48 +154,38 @@ const setNumbersCells = numberOfBombs => {
         for (let adjacentCell of adjacentCells) {
             const cellContent = adjacentCell.firstElementChild;
             const contentClasses = cellContent.classList;
-            switch (true) {
-                case contentClasses.contains("one"):
-                    contentClasses.remove("one", "hidden-cell-content");
-                    contentClasses.add("two");
-                    cellContent.innerHTML = "2";
-                    break;
-                case contentClasses.contains("two"):
-                    contentClasses.remove("two", "hidden-cell-content");
-                    contentClasses.add("three");
-                    cellContent.innerHTML = "3";
-                    break;
-                case contentClasses.contains("three"):
-                    contentClasses.remove("three", "hidden-cell-content");
-                    contentClasses.add("four");
-                    cellContent.innerHTML = "4";
-                    break;
-                case contentClasses.contains("four"):
-                    contentClasses.remove("four", "hidden-cell-content");
-                    contentClasses.add("five");
-                    cellContent.innerHTML = "5";
-                    break;
-                case contentClasses.contains("five"):
-                    contentClasses.remove("five", "hidden-cell-content");
-                    contentClasses.add("six");
-                    cellContent.innerHTML = "6";
-                    break;
-                case contentClasses.contains("six"):
-                    contentClasses.remove("six", "hidden-cell-content");
-                    contentClasses.add("seven");
-                    cellContent.innerHTML = "7";
-                    break;
-                case contentClasses.contains("seven"):
-                    contentClasses.remove("seven", "hidden-cell-content");
-                    contentClasses.add("eight");
-                    cellContent.innerHTML = "8";
-                    break;
-                case contentClasses.contains("fa-bomb"):
-                    break;
-                default:
-                    contentClasses.add("one");
-                    contentClasses.remove("hidden-cell-content");
-                    cellContent.innerHTML = "1";
+            if (contentClasses.contains("one")) {
+                contentClasses.remove("one", "hidden-cell-content");
+                contentClasses.add("two");
+                cellContent.innerHTML = "2";
+            } else if (contentClasses.contains("two")) {
+                contentClasses.remove("two", "hidden-cell-content");
+                contentClasses.add("three");
+                cellContent.innerHTML = "3";
+            } else if (contentClasses.contains("three")) {
+                contentClasses.remove("three", "hidden-cell-content");
+                contentClasses.add("four");
+                cellContent.innerHTML = "4";
+            } else if (contentClasses.contains("four")) {
+                contentClasses.remove("four", "hidden-cell-content");
+                contentClasses.add("five");
+                cellContent.innerHTML = "5";
+            } else if (contentClasses.contains("five")) {
+                contentClasses.remove("five", "hidden-cell-content");
+                contentClasses.add("six");
+                cellContent.innerHTML = "6";
+            } else if (contentClasses.contains("six")) {
+                contentClasses.remove("six", "hidden-cell-content");
+                contentClasses.add("seven");
+                cellContent.innerHTML = "7";
+            } else if (contentClasses.contains("seven")) {
+                contentClasses.remove("seven", "hidden-cell-content");
+                contentClasses.add("eight");
+                cellContent.innerHTML = "8";
+            } else if (!contentClasses.contains("fa-bomb")) {
+                contentClasses.add("one");
+                contentClasses.remove("hidden-cell-content");
+                cellContent.innerHTML = "1";
             }
         }
     }
@@ -205,4 +195,3 @@ const setNumbersCells = numberOfBombs => {
 document.addEventListener("DOMContentLoaded", () => {
     setNumbersCells(15);
 });
-
