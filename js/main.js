@@ -47,10 +47,18 @@ const targetCell = (currentCell, relativeTargetPosition) => {
     //return a particular cell through its relative position to current cell
     if (relativeTargetPosition > 0) {
         for (let i = 0; i < relativeTargetPosition; i++) {
+            if (!currentCell) {
+                currentCell = "out of bound";
+                break;
+            }
             currentCell = currentCell.nextElementSibling;
         }
     } else {
         for (let i = 0; i < Math.abs(relativeTargetPosition); i++) {
+            if (!currentCell) {
+                currentCell = "out of bound";
+                break;
+            }
             currentCell = currentCell.previousElementSibling;
         }
     }
@@ -60,23 +68,24 @@ const targetCell = (currentCell, relativeTargetPosition) => {
 const getAdjacentCells = currentCell => {
     //return the list of adjacent cells of the current one
     const topCell = targetCell(currentCell, -10),
+        topLeftCell = topCell.previousElementSibling,
         topRightCell = topCell.nextElementSibling,
-        rightCell = currentCell.nextElementSibling,
-        bottomRightCell = bottomCell.nextElementSibling,
         bottomCell = targetCell(currentCell, 10),
+        bottomRightCell = bottomCell.nextElementSibling,
         bottomLeftCell = bottomCell.previousElementSibling,
         leftCell = currentCell.previousElementSibling,
-        topLeftCell = topCell.previousElementSibling;
+        rightCell = currentCell.nextElementSibling;
     const adjacentCells = [
         topCell,
+        topLeftCell,
         topRightCell,
-        rightCell,
-        bottomRightCell,
         bottomCell,
+        bottomRightCell,
         bottomLeftCell,
         leftCell,
-        topLeftCell,
+        rightCell,
     ];
+    console.log(adjacentCells);
     return adjacentCells;
 };
 
@@ -85,49 +94,50 @@ const setNumbersCells = numberOfBombs => {
     for (let bombingCell of bombingCells) {
         const adjacentCells = getAdjacentCells(bombingCell);
         for (let adjacentCell of adjacentCells) {
-            const cellContent = adjacentCell.firstChild;
-            const contentClasses = adjacentCell.firstChild.classList;
+            const cellContent = adjacentCell.firstElementChild;
+            const contentClasses = cellContent.classList;
             switch (true) {
                 case contentClasses.contains("one"):
                     contentClasses.remove("one");
                     contentClasses.add("two");
-                    cellContent.innerHTML("2");
+                    cellContent.innerHTML = "2";
                     break;
                 case contentClasses.contains("two"):
                     contentClasses.remove("two");
                     contentClasses.add("three");
-                    cellContent.innerHTML("3");
+                    cellContent.innerHTML = "3";
                     break;
                 case contentClasses.contains("three"):
                     contentClasses.remove("three");
                     contentClasses.add("four");
-                    cellContent.innerHTML("4");
+                    cellContent.innerHTML = "4";
                     break;
                 case contentClasses.contains("four"):
                     contentClasses.remove("four");
                     contentClasses.add("five");
-                    cellContent.innerHTML("5");
+                    cellContent.innerHTML = "5";
                     break;
                 case contentClasses.contains("five"):
                     contentClasses.remove("five");
                     contentClasses.add("six");
-                    cellContent.innerHTML("6");
+                    cellContent.innerHTML = "6";
                     break;
                 case contentClasses.contains("six"):
                     contentClasses.remove("six");
                     contentClasses.add("seven");
-                    cellContent.innerHTML("7");
+                    cellContent.innerHTML = "7";
                     break;
                 case contentClasses.contains("seven"):
                     contentClasses.remove("seven");
                     contentClasses.add("eight");
-                    cellContent.innerHTML("8");
+                    cellContent.innerHTML = "8";
                     break;
                 case contentClasses.contains("fa-bomb"):
                     break;
                 default:
                     contentClasses.add("one");
-                    cellContent.innerHTML("1");
+                    contentClasses.remove("hidden-cell-content");
+                    cellContent.innerHTML = "1";
             }
         }
     }
@@ -135,5 +145,6 @@ const setNumbersCells = numberOfBombs => {
 
 // TESTS
 document.addEventListener("DOMContentLoaded", () => {
-    console.log(setAndGetBombingCells(15));
+    //console.log(setAndGetBombingCells(15));
+    setNumbersCells(1);
 });
