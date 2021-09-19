@@ -149,6 +149,7 @@ const getAdjacentCells = currentCell => {
 };
 
 const setNumbersCells = numberOfBombs => {
+    //set the numerical cells
     const bombingCells = setAndGetBombingCells(numberOfBombs);
     for (let bombingCell of bombingCells) {
         const adjacentCells = getAdjacentCells(bombingCell);
@@ -194,5 +195,5 @@ const setNumbersCells = numberOfBombs => {
 
 // TESTS
 document.addEventListener("DOMContentLoaded", () => {
-    setNumbersCells(15);
+    setNumbersCells(1);
 });
