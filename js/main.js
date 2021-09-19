@@ -85,40 +85,49 @@ const setNumbersCells = numberOfBombs => {
     for (let bombingCell of bombingCells) {
         const adjacentCells = getAdjacentCells(bombingCell);
         for (let adjacentCell of adjacentCells) {
+            const cellContent = adjacentCell.firstChild;
             const contentClasses = adjacentCell.firstChild.classList;
             switch (true) {
                 case contentClasses.contains("one"):
                     contentClasses.remove("one");
-                    contentClasses.add("two")
+                    contentClasses.add("two");
+                    cellContent.innerHTML("2");
                     break;
                 case contentClasses.contains("two"):
                     contentClasses.remove("two");
-                    contentClasses.add("three")
+                    contentClasses.add("three");
+                    cellContent.innerHTML("3");
                     break;
                 case contentClasses.contains("three"):
                     contentClasses.remove("three");
                     contentClasses.add("four");
+                    cellContent.innerHTML("4");
                     break;
                 case contentClasses.contains("four"):
                     contentClasses.remove("four");
                     contentClasses.add("five");
+                    cellContent.innerHTML("5");
                     break;
                 case contentClasses.contains("five"):
                     contentClasses.remove("five");
                     contentClasses.add("six");
+                    cellContent.innerHTML("6");
                     break;
                 case contentClasses.contains("six"):
                     contentClasses.remove("six");
                     contentClasses.add("seven");
+                    cellContent.innerHTML("7");
                     break;
                 case contentClasses.contains("seven"):
                     contentClasses.remove("seven");
                     contentClasses.add("eight");
+                    cellContent.innerHTML("8");
                     break;
                 case contentClasses.contains("fa-bomb"):
                     break;
                 default:
                     contentClasses.add("one");
+                    cellContent.innerHTML("1");
             }
         }
     }
