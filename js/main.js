@@ -8,12 +8,12 @@ const setBombsIndeces = numberOfBombs => {
     //return a random indeces list for random picking in a span elements list
     const cellsLength = document.getElementsByClassName("cell").length;
     const BombsIndeces = [];
-    for (let i = 0, randomInteger = -1, previousInteger = -1; i < numberOfBombs; i++) {
-        while (randomInteger === previousInteger) {
+    for (let i = 0; i < numberOfBombs; i++) {
+        randomInteger = randomIntegerFrom0ToMax(cellsLength);
+        while (BombsIndeces.includes(randomInteger)) {
             randomInteger = randomIntegerFrom0ToMax(cellsLength);
         }
         BombsIndeces.push(randomInteger);
-        previousInteger = randomInteger;
     }
     return BombsIndeces;
 };
@@ -144,56 +144,73 @@ const getAdjacentCells = currentCell => {
                 leftCell
             );
     }
-    console.log(adjacentCells);
     return adjacentCells;
 };
 
 const setNumbersCells = numberOfBombs => {
     //set the numerical cells
     const bombingCells = setAndGetBombingCells(numberOfBombs);
+    console.log(bombingCells);
     for (let bombingCell of bombingCells) {
         const adjacentCells = getAdjacentCells(bombingCell);
         for (let adjacentCell of adjacentCells) {
             const cellContent = adjacentCell.firstElementChild;
-            const contentClasses = cellContent.classList;
-            if (contentClasses.contains("one")) {
-                contentClasses.remove("one", "hidden-cell-content");
-                contentClasses.add("two");
-                cellContent.innerHTML = "2";
-            } else if (contentClasses.contains("two")) {
-                contentClasses.remove("two", "hidden-cell-content");
-                contentClasses.add("three");
-                cellContent.innerHTML = "3";
-            } else if (contentClasses.contains("three")) {
-                contentClasses.remove("three", "hidden-cell-content");
-                contentClasses.add("four");
-                cellContent.innerHTML = "4";
-            } else if (contentClasses.contains("four")) {
-                contentClasses.remove("four", "hidden-cell-content");
-                contentClasses.add("five");
-                cellContent.innerHTML = "5";
-            } else if (contentClasses.contains("five")) {
-                contentClasses.remove("five", "hidden-cell-content");
-                contentClasses.add("six");
-                cellContent.innerHTML = "6";
-            } else if (contentClasses.contains("six")) {
-                contentClasses.remove("six", "hidden-cell-content");
-                contentClasses.add("seven");
-                cellContent.innerHTML = "7";
-            } else if (contentClasses.contains("seven")) {
-                contentClasses.remove("seven", "hidden-cell-content");
-                contentClasses.add("eight");
-                cellContent.innerHTML = "8";
-            } else if (!contentClasses.contains("fa-bomb")) {
-                contentClasses.add("one");
-                contentClasses.remove("hidden-cell-content");
-                cellContent.innerHTML = "1";
+            const classes = cellContent.classList;
+            switch (cellContent.innerHTML) {
+                case "7":
+                    cellContent.innerHTML = "8";
+                    classes.add("eight");
+                    classes.remove("seven", "hidden-cell-content");
+                    break;
+                case "6":
+                    cellContent.innerHTML = "7";
+                    classes.add("seven");
+                    classes.remove("six", "hidden-cell-content");
+                    break;
+                case "5":
+                    cellContent.innerHTML = "6";
+                    classes.add("six");
+                    classes.remove("five", "hidden-cell-content");
+                    break;
+                case "4":
+                    cellContent.innerHTML = "5";
+                    classes.add("five");
+                    classes.remove("four", "hidden-cell-content");
+                    break;
+                case "3":
+                    cellContent.innerHTML = "4";
+                    classes.add("four");
+                    classes.remove("three", "hidden-cell-content");
+                    break;
+                case "2":
+                    cellContent.innerHTML = "3";
+                    classes.add("three");
+                    classes.remove("four", "hidden-cell-content");
+                    break;
+                case "1":
+                    cellContent.innerHTML = "2";
+                    classes.add("two");
+                    classes.remove("one", "hidden-cell-content");
+                    break;
+                default:
+                    if (!classes.contains("fa-bomb")) {
+                        cellContent.innerHTML = "1";
+                        classes.add("one");
+                        classes.remove("hidden-cell-content");
+                    }
             }
         }
     }
 };
 
+/*
+if (contentClasses.contains("one")) {
+    contentClasses.remove("one", "hidden-cell-content");
+    contentClasses.add("two");
+    cellContent.innerHTML = "2";
+*/
+
 // TESTS
 document.addEventListener("DOMContentLoaded", () => {
-    setNumbersCells(1);
+    setNumbersCells(15);
 });
