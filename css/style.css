@@ -22,7 +22,7 @@
 #minesweeper-field {
     /*SIZE*/
     width: 90%;
-    height: 95%;
+    height: 87%;
     /*STYLE*/
     background-color: #D8E2DC;
     border: 5px solid #ECE4DB;
@@ -71,9 +71,13 @@
     color: #FEC5BB;
 }
 
-.three, .four, .five, .six, .seven, .eight {
+.three, .four, .five, .six, .seven {
     color: #FEC89A;
 }
+
+.eight {
+    color: #333;
+} 
 
 .fa-bomb {
     animation: bomb 0.5s infinite ease;

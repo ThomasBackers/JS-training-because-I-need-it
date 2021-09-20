@@ -1,4 +1,4 @@
-// SET BOMBING CELLS
+// ---------- SET BOMBING CELLS ----------
 const randomIntegerFrom0ToMax = max => {
     //return a random number between 0 and max
     return Math.floor(Math.random() * max);
@@ -42,7 +42,7 @@ const setAndGetBombingCells = numberOfBombs => {
     return bombingCells;
 };
 
-// SET NUMBERS
+// ---------- SET NUMBERS ----------
 const targetCell = (currentCell, relativeTargetPosition) => {
     //return a particular cell through its relative position to current cell
     if (relativeTargetPosition > 0) {
@@ -150,7 +150,6 @@ const getAdjacentCells = currentCell => {
 const setNumbersCells = numberOfBombs => {
     //set the numerical cells
     const bombingCells = setAndGetBombingCells(numberOfBombs);
-    console.log(bombingCells);
     for (let bombingCell of bombingCells) {
         const adjacentCells = getAdjacentCells(bombingCell);
         for (let adjacentCell of adjacentCells) {
@@ -203,14 +202,7 @@ const setNumbersCells = numberOfBombs => {
     }
 };
 
-/*
-if (contentClasses.contains("one")) {
-    contentClasses.remove("one", "hidden-cell-content");
-    contentClasses.add("two");
-    cellContent.innerHTML = "2";
-*/
-
-// TESTS
+// ---------- EXECUTION ----------
 document.addEventListener("DOMContentLoaded", () => {
     setNumbersCells(15);
 });
