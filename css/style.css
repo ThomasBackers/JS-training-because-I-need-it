@@ -51,6 +51,7 @@
     /*STYLE*/
     background-color: #F8EDEB;
     border: 3px outset #EADCCE;
+    cursor: pointer;
 }
 
 .cell-content {

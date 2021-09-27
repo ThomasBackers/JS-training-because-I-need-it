@@ -147,7 +147,7 @@ const getAdjacentCells = currentCell => {
     return adjacentCells;
 };
 
-const setNumbersCells = numberOfBombs => {
+const setField = numberOfBombs => {
     //set the numerical cells
     const bombingCells = setAndGetBombingCells(numberOfBombs);
     for (let bombingCell of bombingCells) {
@@ -184,7 +184,7 @@ const setNumbersCells = numberOfBombs => {
                 case "2":
                     cellContent.innerHTML = "3";
                     classes.add("three");
-                    classes.remove("four", "hidden-cell-content");
+                    classes.remove("two", "hidden-cell-content");
                     break;
                 case "1":
                     cellContent.innerHTML = "2";
@@ -195,6 +195,7 @@ const setNumbersCells = numberOfBombs => {
                     if (!classes.contains("fa-bomb")) {
                         cellContent.innerHTML = "1";
                         classes.add("one");
+                        classes.add("number");
                         classes.remove("hidden-cell-content");
                     }
             }
@@ -202,7 +203,43 @@ const setNumbersCells = numberOfBombs => {
     }
 };
 
+// ---------- CELLS BEHAVIOR ----------
+const revealCell = cell => {
+    cell.classList.remove("hidden-cell")
+    cell.firstElementChild.classList.remove("hidden-cell-content");
+    //return cell.firstElementChild.classList;
+};
+
+const gameOver = () => {};
+
+const getSafeAdjacents = cell => {
+    const safeCells = [];
+    const adjacentCells = getAdjacentCells(cell);
+    for (let adjacentCell of adjacentCells) {
+        if (!adjacentCell.firstElementChild.classList.contains("fa-bomb")) {
+            safeCells.push(adjacentCell);
+        }
+    }
+    return safeCells;
+};
+
+const getNumericalSafeCells = safeCells => {
+    for (let cell of safeCells) {
+        if (cell.firstElementChild.classList.contains("number")) {
+            revealCell(cell);
+        }
+    }
+};
+
+// ---------- ATTACH EVENTS ----------
+const cells = document.getElementsByClassName("hidden-cell");
+for (let cell of cells) {
+    cell.addEventListener("click", () => {
+        revealCell(cell);
+    });
+}
+
 // ---------- EXECUTION ----------
 document.addEventListener("DOMContentLoaded", () => {
-    setNumbersCells(15);
+    setField(15);
 });
