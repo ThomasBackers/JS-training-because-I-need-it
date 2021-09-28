@@ -216,17 +216,19 @@ const getSafeAdjacents = cell => {
     const safeCells = [];
     const adjacentCells = getAdjacentCells(cell);
     for (let adjacentCell of adjacentCells) {
-        if (!adjacentCell.firstElementChild.classList.contains("fa-bomb")) {
+        if (!adjacentCell.firstElementChild.classList.contains("fa-bomb") && adjacentCell.classList.contains("hidden-cell")) {
             safeCells.push(adjacentCell);
         }
     }
     return safeCells;
 };
 
-const getNumericalSafeCells = safeCells => {
-    for (let cell of safeCells) {
-        if (cell.firstElementChild.classList.contains("number")) {
-            revealCell(cell);
+const revealSafeCells = safeCells => {
+    for (let safeCell of safeCells) {
+        revealCell(safeCell);
+        if (!safeCell.firstElementChild.classList.contains("number")) {
+            const safeAdjacents = getSafeAdjacents(safeCell);
+            revealSafeCells(safeAdjacents);
         }
     }
 };
@@ -236,6 +238,8 @@ const cells = document.getElementsByClassName("hidden-cell");
 for (let cell of cells) {
     cell.addEventListener("click", () => {
         revealCell(cell);
+        const safeAdjacents = getSafeAdjacents(cell);
+        revealSafeCells(safeAdjacents);
     });
 }
 
