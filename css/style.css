@@ -72,8 +72,24 @@
     color: #FEC5BB;
 }
 
-.three, .four, .five, .six, .seven {
+.three {
     color: #FEC89A;
+}
+
+.four {
+    color: #FE917E;
+}
+
+.five {
+    color: #FF6B51;
+}
+
+.six {
+    color: #FF2B06;
+}
+
+.seven {
+    color: #BC2005;
 }
 
 .eight {

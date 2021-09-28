@@ -36,7 +36,6 @@ const setAndGetBombingCells = numberOfBombs => {
     const bombingCells = [];
     for (let bombingCellsContent of bombingCellsContents) {
         bombingCellsContent.classList.add("fas", "fa-bomb");
-        bombingCellsContent.classList.remove("hidden-cell-content");
         bombingCells.push(bombingCellsContent.parentNode);
     }
     return bombingCells;
@@ -159,44 +158,43 @@ const setField = numberOfBombs => {
                 case "7":
                     cellContent.innerHTML = "8";
                     classes.add("eight");
-                    classes.remove("seven", "hidden-cell-content");
+                    classes.remove("seven");
                     break;
                 case "6":
                     cellContent.innerHTML = "7";
                     classes.add("seven");
-                    classes.remove("six", "hidden-cell-content");
+                    classes.remove("six");
                     break;
                 case "5":
                     cellContent.innerHTML = "6";
                     classes.add("six");
-                    classes.remove("five", "hidden-cell-content");
+                    classes.remove("five");
                     break;
                 case "4":
                     cellContent.innerHTML = "5";
                     classes.add("five");
-                    classes.remove("four", "hidden-cell-content");
+                    classes.remove("four");
                     break;
                 case "3":
                     cellContent.innerHTML = "4";
                     classes.add("four");
-                    classes.remove("three", "hidden-cell-content");
+                    classes.remove("three");
                     break;
                 case "2":
                     cellContent.innerHTML = "3";
                     classes.add("three");
-                    classes.remove("two", "hidden-cell-content");
+                    classes.remove("two");
                     break;
                 case "1":
                     cellContent.innerHTML = "2";
                     classes.add("two");
-                    classes.remove("one", "hidden-cell-content");
+                    classes.remove("one");
                     break;
                 default:
                     if (!classes.contains("fa-bomb")) {
                         cellContent.innerHTML = "1";
                         classes.add("one");
                         classes.add("number");
-                        classes.remove("hidden-cell-content");
                     }
             }
         }
@@ -209,8 +207,6 @@ const revealCell = cell => {
     cell.firstElementChild.classList.remove("hidden-cell-content");
     //return cell.firstElementChild.classList;
 };
-
-const gameOver = () => {};
 
 const getSafeAdjacents = cell => {
     const safeCells = [];
