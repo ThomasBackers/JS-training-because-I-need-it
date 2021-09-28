@@ -234,16 +234,25 @@ const revealSafeCells = safeCells => {
 };
 
 // ---------- ATTACH EVENTS ----------
-const cells = document.getElementsByClassName("hidden-cell");
-for (let cell of cells) {
-    cell.addEventListener("click", () => {
-        revealCell(cell);
-        const safeAdjacents = getSafeAdjacents(cell);
-        revealSafeCells(safeAdjacents);
-    });
-}
+const attachEvents = () => {
+    const cells = document.getElementsByClassName("cell");
+    for (let cell of cells) {
+        if (cell.firstElementChild.classList.contains("fa-bomb") || cell.firstElementChild.classList.contains("number")) {
+            cell.addEventListener("click", () => {
+                revealCell(cell);
+            });
+        } else {
+            cell.addEventListener("click", () => {
+                revealCell(cell);
+                const safeAdjacents = getSafeAdjacents(cell);
+                revealSafeCells(safeAdjacents);
+            });
+        }
+    }
+};
 
 // ---------- EXECUTION ----------
 document.addEventListener("DOMContentLoaded", () => {
     setField(15);
+    attachEvents();
 });
