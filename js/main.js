@@ -82,7 +82,7 @@ const getAdjacentCells = currentCell => {
     I had to do that huge switch as I have to check what's the cell's position
     in the grid to avoid to retrieve an off-field cell (which would be null) 
     or in an unwanted position (tipically when the cell is on the right border
-    you don't want to retrieve a cell on the right or I'll have a weird position).
+    you don't want to retrieve a cell on the right or you'll have a weird position).
     -------------------------------------------------------------------------------
     To better understand it, remember: When I get the cells they are in a kind of
     a list. So I move on a single dimension object (and the grid has 2 dimensions).
