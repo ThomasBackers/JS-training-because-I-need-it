@@ -233,8 +233,8 @@ const revealCell = cell => {
     cell.firstElementChild.classList.remove("hidden-cell-content");
 };
 
-/** gets the safe adjacent cells of the current one */
-const getSafeAdjacents = cell => {
+/** gets the safe & hidden adjacent cells of the current one */
+const getSafeAndHiddenAdjacents = cell => {
     const safeCells = [];
     const adjacentCells = getAdjacentCells(cell);
     for (let adjacentCell of adjacentCells) {
@@ -251,14 +251,14 @@ const getSafeAdjacents = cell => {
 /**
  * reveals the safe cells
  * but if there are blank cells in them (I mean without any number)
- * the function has to get their safe adjacent cells too
+ * the function has to get their safe & hidden adjacent cells too
  * and to do all its routine again with 'em
  */
 const revealSafeCells = safeCells => {
     for (let safeCell of safeCells) {
         revealCell(safeCell);
         if (!safeCell.firstElementChild.classList.contains("number")) {
-            const safeAdjacents = getSafeAdjacents(safeCell);
+            const safeAdjacents = getSafeAndHiddenAdjacents(safeCell);
             revealSafeCells(safeAdjacents);
         }
     }
@@ -283,7 +283,7 @@ const attachEvents = () => {
             // reveal, check for adjacents & reveals recursively the other blank cells
             cell.addEventListener("click", () => {
                 revealCell(cell);
-                const safeAdjacents = getSafeAdjacents(cell);
+                const safeAdjacents = getSafeAndHiddenAdjacents(cell);
                 revealSafeCells(safeAdjacents);
             });
         }
